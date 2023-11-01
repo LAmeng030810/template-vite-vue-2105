@@ -1,5 +1,7 @@
 import { createRouter, RouteRecordRaw, createWebHistory } from 'vue-router'
 
+import test from './test'
+
 const routes: RouteRecordRaw[] = [
   {
     // path就是地址栏访问路径
@@ -15,7 +17,7 @@ const routes: RouteRecordRaw[] = [
     path: '/pinia',
     component: () => import('../view/Pinia.vue'),
   },
-]
+].concat(test)
 
 // 创建router
 const router = createRouter({
