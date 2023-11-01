@@ -36,6 +36,7 @@
   - pinia状态管理：`npm install pinia`
   - prettier代码格式化：`npm install --save-dev --save-exact prettier`
   - 饿了么ui框架：`npm install element-plus --save`
+  - 饿了么ui按需导入：`npm install -D unplugin-vue-components unplugin-auto-import`
   - axios网络请求：`npm install axios`
   - qs工具：`npm install qs`
   - qs工具类型定义：`npm i --save--dev @types/qs`
