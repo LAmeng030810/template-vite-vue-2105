@@ -1,8 +1,10 @@
 <template>
+  <RouterLink to="/"><ElButton>返回</ElButton></RouterLink>
+
   <div>测试后端服务一</div>
   <div style="display: flex">
     <ElInput v-model="email_info.email"></ElInput>
-    <ElButton @click="sendEamil">发送邮件</ElButton>
+    <ElButton @click="sendEamil">发送邮件</ElButton>X
   </div>
   <hr />
   <div>
