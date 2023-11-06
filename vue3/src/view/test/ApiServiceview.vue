@@ -4,7 +4,13 @@
   <!-- 邮箱验证码 -->
   <div style="display: flex">
     <ElInput v-model="email_info.email" placeholder="获取邮箱验证码"></ElInput>
-    <ElButton @click="sendEamil">发送邮件</ElButton>
+    <ElButton type="primary" @click="sendEamil">发送邮件</ElButton>
+  </div>
+  <hr>
+  <!-- 短信验证码 -->
+  <div style="display: flex">
+    <ElInput v-model="phone_info.phone" placeholder="获取短信验证码"></ElInput>
+    <ElButton type="primary" @click="sendPhone">发送短信</ElButton>
   </div>
   <hr />
   <!-- 图片验证码 -->
@@ -15,7 +21,7 @@
   <!-- 文字转拼音 -->
   <div style="display: flex">
     <ElInput v-model="py" placeholder="请输入文字"></ElInput>
-    <ElButton @click="getPy">获取拼音</ElButton>
+    <ElButton type="primary" @click="getPy">获取拼音</ElButton>
   </div>
   {{ result }}
 </template>
@@ -37,6 +43,20 @@ const sendEamil = () => {
     ElMessageBox.alert(data.message)
   })
 }
+// #endregion
+
+// #region 短信验证码
+const phone_info = ref({
+  phone:'',
+  code: '',
+})
+
+const sendPhone = () => {
+  ApiService.post('/tools/sendPhoneCode', phone_info.value, (data: any) => {
+    ElMessageBox.alert(data.message)
+  })
+}
+
 // #endregion
 
 // #region 图片验证码
