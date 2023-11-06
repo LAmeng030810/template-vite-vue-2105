@@ -1,18 +1,20 @@
 <template>
   <RouterLink to="/"><ElButton>返回</ElButton></RouterLink>
-
   <div>测试后端服务一</div>
+  <!-- 邮箱验证码 -->
   <div style="display: flex">
-    <ElInput v-model="email_info.email"></ElInput>
-    <ElButton @click="sendEamil">发送邮件</ElButton>X
+    <ElInput v-model="email_info.email" placeholder="获取邮箱验证码"></ElInput>
+    <ElButton @click="sendEamil">发送邮件</ElButton>
   </div>
   <hr />
+  <!-- 图片验证码 -->
   <div>
-    <img @click="getImgCode" :src="imgcode.dataurl" alt="" />
+    <img @click="getImgCode" :src="imgcode.dataurl" alt="" />图片验证码
   </div>
   <hr />
+  <!-- 文字转拼音 -->
   <div style="display: flex">
-    <ElInput v-model="py"></ElInput>
+    <ElInput v-model="py" placeholder="请输入文字"></ElInput>
     <ElButton @click="getPy">获取拼音</ElButton>
   </div>
   {{ result }}
@@ -24,11 +26,20 @@ import { ElButton, ElInput, ElMessageBox } from 'element-plus'
 import { ApiService } from '../../api/ApiService'
 import { TeachService } from '../../api/TeachService'
 
+// #region 邮箱验证码
 const email_info = ref({
   email: '',
   code: '',
 })
 
+const sendEamil = () => {
+  ApiService.post('/tools/sendMailCode', email_info.value, (data: any) => {
+    ElMessageBox.alert(data.message)
+  })
+}
+// #endregion
+
+// #region 图片验证码
 const imgcode = ref({
   dataurl: '',
   code: '',
@@ -46,13 +57,9 @@ const getImgCode = () => {
 }
 
 getImgCode()
+// #endregion
 
-const sendEamil = () => {
-  ApiService.post('/tools/sendMailCode', email_info.value, (data: any) => {
-    ElMessageBox.alert(data.message)
-  })
-}
-
+// #region 文字转拼音
 const py = ref('')
 const result = ref('')
 const getPy = () => {
@@ -60,5 +67,6 @@ const getPy = () => {
     result.value = data.message
   })
 }
+// #endregion
 </script>
 <style lang="scss" scoped></style>
