@@ -1,5 +1,13 @@
 <template>
+  <div style="text-align: center">主页面</div>
+  <hr />
+  <RouterLink to="/pinia"><ElButton>计数器</ElButton></RouterLink>
+  <br />
+  <br />
   <RouterLink to="/test/apiserviceview"><ElButton>测试后端服务一</ElButton></RouterLink>
+  <br />
+  <br />
+  <RouterLink to="/news"><ElButton>新闻</ElButton></RouterLink>
 </template>
 
 <script setup lang="ts">
