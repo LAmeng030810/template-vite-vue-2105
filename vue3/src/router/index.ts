@@ -17,6 +17,10 @@ const routes: RouteRecordRaw[] = [
     path: '/pinia',
     component: () => import('../view/Pinia.vue'),
   },
+  {
+    path: '/news',
+    component: () => import('../view/News.vue'),
+  },
 ].concat(test)
 
 // 创建router
