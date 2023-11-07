@@ -5,10 +5,12 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
+    "dev-host": "vite --host",
     "build": "vue-tsc && vite build",
     "preview": "vite preview"
   },
   "dependencies": {
+    "@amap/amap-jsapi-loader": "^1.0.1",
     "@types/qs": "^6.9.9",
     "axios": "^1.6.0",
     "element-plus": "^2.4.1",
