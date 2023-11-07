@@ -10,7 +10,10 @@
   <RouterLink to="/news"><ElButton>新闻</ElButton></RouterLink>
   <br />
   <br />
-  <RouterLink to="/amap"><ElButton>地图</ElButton></RouterLink>
+  <RouterLink to="/amap"><ElButton>高德地图</ElButton></RouterLink>
+  <br />
+  <br />
+  <RouterLink to="/bmap"><ElButton>百度地图</ElButton></RouterLink>
 </template>
 
 <script setup lang="ts">
