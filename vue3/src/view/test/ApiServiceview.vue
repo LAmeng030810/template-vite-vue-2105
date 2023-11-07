@@ -6,7 +6,12 @@
     <ElInput v-model="email_info.email" placeholder="获取邮箱验证码"></ElInput>
     <ElButton type="primary" @click="sendEamil">发送邮件</ElButton>
   </div>
-  <hr>
+  <br />
+  <div class="input">
+    <ElInput v-model="echo" placeholder="验证码"></ElInput>
+    <ElButton @click="sendEcho">发送</ElButton>
+  </div>
+  <hr />
   <!-- 短信验证码 -->
   <div style="display: flex">
     <ElInput v-model="phone_info.phone" placeholder="获取短信验证码"></ElInput>
@@ -45,9 +50,23 @@ const sendEamil = () => {
 }
 // #endregion
 
+const echo = ref('')
+
+const sendEcho = () => {
+  ApiService.get(
+    '/test/echo',
+    {
+      echo: echo.value,
+    },
+    (data: any) => {
+      ElMessageBox.alert(JSON.stringify(data))
+    }
+  )
+}
+
 // #region 短信验证码
 const phone_info = ref({
-  phone:'',
+  phone: '',
   code: '',
 })
 
@@ -89,4 +108,8 @@ const getPy = () => {
 }
 // #endregion
 </script>
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.input {
+  display: flex;
+}
+</style>
