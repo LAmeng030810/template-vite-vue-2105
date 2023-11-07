@@ -8,6 +8,9 @@
   <br />
   <br />
   <RouterLink to="/news"><ElButton>新闻</ElButton></RouterLink>
+  <br />
+  <br />
+  <RouterLink to="/amap"><ElButton>地图</ElButton></RouterLink>
 </template>
 
 <script setup lang="ts">
