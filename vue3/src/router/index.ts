@@ -25,6 +25,10 @@ const routes: RouteRecordRaw[] = [
     path: '/amap',
     component: () => import('../view/AMap.vue'),
   },
+  {
+    path: '/bmap',
+    component: () => import('../view/BMap.vue'),
+  },
 ].concat(test)
 
 // 创建router
