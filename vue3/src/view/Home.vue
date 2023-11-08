@@ -14,6 +14,9 @@
   <br />
   <br />
   <RouterLink to="/bmap"><ElButton>百度地图</ElButton></RouterLink>
+  <br />
+  <br />
+  <RouterLink to="/skeleton"><ElButton>骨架屏</ElButton></RouterLink>
 </template>
 
 <script setup lang="ts">
