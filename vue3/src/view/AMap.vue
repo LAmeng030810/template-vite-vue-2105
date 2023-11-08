@@ -44,9 +44,23 @@ let sinfo = ref('')
 // 用户初始定位位置
 let userLocation: any
 
+const map_url = 'https://uri.amap.com/navigation?from='
+
 const openMap = () => {
   console.log('定位信息：', userLocation, map.getCenter())
-} 
+  let url =
+    map_url +
+    userLocation.lng +
+    ',' +
+    userLocation.lat +
+    '&to=' +
+    map.getCenter().lng +
+    ',' +
+    map.getCenter().lat +
+    '&mode=walk'
+  console.log('地图调起url')
+  window.open(url)
+}
 
 const search = () => {
   if (sinfo.value == '') {
