@@ -163,7 +163,7 @@ import zhCn from 'element-plus/dist/locale/zh-cn.mjs'
 
 ```vue
 <template>
-  <ElButton type="primary">  关于黑暗骑士的网站</ElButton>
+  <ElButton type="primary">关于黑暗骑士的网站</ElButton>
 </template>
 
 <script lang="ts" setup>
