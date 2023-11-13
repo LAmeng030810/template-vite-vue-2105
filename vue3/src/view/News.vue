@@ -92,6 +92,7 @@
                   </span>
                 </div>
                 <div class="footer">
+                  {{ d.hits }}
                   {{ tools.formatDate(d.lastupdate) }}
                 </div>
               </div>
