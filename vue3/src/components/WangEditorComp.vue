@@ -1,7 +1,17 @@
 <template>
   <div style="border: 1px solid #ccc">
-    <Toolbar style="border-bottom: 1px solid #ccc" :editor="editorRef" :defaultConfig="toolbarConfig" />
-    <Editor @onChange="handleChange" style="min-height: 20vh; max-height: 40vh; overflow-y: hidden" v-model="props.initValue" :defaultConfig="editorConfig" @onCreated="handleCreated" />
+    <Toolbar
+      style="border-bottom: 1px solid #ccc"
+      :editor="editorRef"
+      :defaultConfig="toolbarConfig"
+    />
+    <Editor
+      @onChange="handleChange"
+      style="min-height: 20vh; max-height: 40vh; overflow-y: hidden"
+      v-model="props.initValue"
+      :defaultConfig="editorConfig"
+      @onCreated="handleCreated"
+    />
   </div>
   <hr />
 </template>
@@ -40,9 +50,10 @@ onBeforeUnmount(() => {
   editor.destroy()
 })
 
-const handleCreated = (editor) => {
+const handleCreated = (editor: any) => {
   editorRef.value = editor // 记录 editor 实例，重要！
 }
 </script>
 
 <style lang="scss" scoped></style>
+
