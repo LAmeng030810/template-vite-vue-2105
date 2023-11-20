@@ -46,6 +46,7 @@
                   <div>
                     <!-- 修改图标 -->
                     <svg
+                      @click="showModify(d)"
                       t="1699580102111"
                       class="icon"
                       viewBox="0 0 1024 1024"
@@ -64,6 +65,7 @@
                     </svg>
                     <!-- 删除图标 -->
                     <svg
+                      @click="del(d)"
                       t="1699857620768"
                       class="icon"
                       viewBox="0 0 1024 1024"
@@ -133,14 +135,43 @@
     </div>
   </ElDialog>
 
+  <!-- 修改的对话框 -->
+  <ElDialog title="修改新闻" v-model="mvisible" @close="query">
+    <div>
+      <ElForm>
+        <ElFormItem>
+          <ElInput
+            v-model="modifyInfo.title"
+            placeholder="请输入标题"
+          ></ElInput>
+        </ElFormItem>
+
+        <ElFormItem>
+          <ElInput
+            v-model="modifyInfo.source"
+            placeholder="请输入来源"
+          ></ElInput>
+        </ElFormItem>
+
+        <ElFormItem>
+          <WangEditorComp
+            @value-change="change_modify_value"
+            :init-value="modifyInfo.info"
+          ></WangEditorComp>
+        </ElFormItem>
+
+        <ElFormItem>
+          <ElButton type="primary" @click="modify">保存</ElButton>
+        </ElFormItem>
+      </ElForm>
+    </div>
+  </ElDialog>
+
   <!-- 分页信息 -->
   <div style="display: flex; justify-content: center; padding: 1rem">
     <div>
-      <ElButton type="primary" @click="showAdd">
-        <span>发布新闻</span>
-      </ElButton>
+      <ElButton type="primary" @click="showAdd">发布新闻</ElButton>
     </div>
-    <el-button @click="setLoading">刷新</el-button>
     <RouterLink to="/"><ElButton>返回</ElButton></RouterLink>
     <PageComp :page="page" @page-change="query"></PageComp>
   </div>
@@ -148,7 +179,7 @@
 
 <script lang="ts" setup>
 // 导入的包以及组件
-import { ref } from 'vue'
+import { ref, onMounted } from 'vue'
 import { ApiService } from '../api/ApiService'
 import { tools } from '../api/Tools'
 import {
@@ -166,17 +197,6 @@ import {
 import PageComp from '../components/PageComp.vue'
 import WangEditorComp from '../components/WangEditorComp.vue'
 
-// #region 骨架屏
-const loading = ref(true)
-
-const setLoading = () => {
-  loading.value = true
-  setTimeout(() => {
-    loading.value = false
-  }, 1000)
-}
-// #endregion
-
 // #region 查询的部分
 const list = ref([])
 
@@ -191,11 +211,16 @@ const queryInfo = ref({
   hits: '',
 })
 
+// 骨架屏
+const loading = ref(false)
+
 const query = () => {
+  loading.value = true
   ApiService.get(
     '/crud/news',
     tools.concatJson(page.value, queryInfo.value),
     (data: any) => {
+      loading.value = false
       if (data.success) {
         list.value = data.data
         page.value = data.pageBean
@@ -206,7 +231,10 @@ const query = () => {
   )
 }
 
-query()
+onMounted(() => {
+  query()
+})
+
 // #endregion
 
 // #region 显示新闻详情的部分
@@ -257,10 +285,48 @@ const add = () => {
 // #endregion
 
 // #region 修改新闻的部分
+const change_modify_value = (value: any) => {
+  modifyInfo.value.info = value
+}
+
+const mvisible = ref(false)
+const modifyInfo = ref({
+  nid: -1,
+  title: '',
+  info: '',
+  source: '',
+})
+
+const showModify = (info: any) => {
+  ApiService.get(`/crud/news/${info.nid}`, {}, (data: any) => {
+    modifyInfo.value = data.data
+    mvisible.value = true
+  })
+}
+
+const modify = () => {
+  ApiService.put(`/crud/news`, modifyInfo.value, (data: any) => {
+    ElMessageBox.alert(data.message, '任沐铭的网站')
+  })
+}
 
 // #endregion
 
 // #region 删除新闻的部分
+const del = (info: any) => {
+  ElMessageBox.confirm(
+    `是否删除来自"${info.source}"的新闻：${info.title}`,
+    '确认删除'
+  )
+    .then(() => {
+      ApiService.delete(`/crud/news/${info.nid}`, {}, (data: any) => {
+        ElMessageBox.alert(data.message, '任沐铭的网站')
+          .then(query)
+          .catch(query)
+      })
+    })
+    .catch(() => {})
+}
 
 // #endregion
 </script>
